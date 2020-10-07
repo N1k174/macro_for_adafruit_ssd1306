@@ -15,7 +15,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define startscrolldiagleft(start, _stop_) display.startscrolldiagleft(start, _stop_)
 #define startscrolldiagright(start, _stop_) display.startscrolldiagright(start, _stop_)
 #define stopscroll display.stopscroll()
-#define setcursor(x, y) display.setCursor(x, y)
+#define setCursor(x, y) display.setCursor(x, y)
 #define setTextSize(s) display.setTextSize(s)
 #define setTextColor(color) display.setTextColor(color)
 
@@ -24,7 +24,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define drawPixel(x, y) display.drawPixel(x, y, SSD1306_INVERSE)
 #define drawLine(x1, y1, x2, y2) display.drawLine(x1, y1, x2, y2, SSD1306_INVERSE)
 #define drawCircle(x, y, s) display.drawCircle(x, y, s, SSD1306_INVERSE)
-#define fillCircle(x1, y1, x2, y2) display.fillCircle(x1, y1, x2, y2, SSD1306_INVERSE)
+#define fillCircle(x, y, s) display.fillCircle(x, y, s, SSD1306_INVERSE)
 #define drawRect(x1, y1, x2, y2) display.drawRect(x1, y1, x2, y2, SSD1306_INVERSE)
 #define fillRect(x1, y1, x2, y2) display.fillRect(x1, y1, x2, y2, SSD1306_INVERSE)
 #define roundRect(x1, y1, x2, y2, s) display.drawRoundRect(x1, y1, x2, y2, s, SSD1306_INVERSE)
