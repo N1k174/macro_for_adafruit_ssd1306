@@ -1,35 +1,14 @@
-%:include <SPI.h>
-%:include <Wire.h>
-%:include <Adafruit_GFX.h>
-%:include <Adafruit_SSD1306.h>
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include "macro_ssd1306.h"
 
-Adafruit_SSD1306 display(128, 64, &Wire, 4);
+#define WIDTH  static_cast<uint8_t> (128)
+#define HEIGHT static_cast<uint8_t> (64)
 
-#define CLS display.clearDisplay()
-#define DD display.display()
-#define getBuffer display.getBuffer()
-#define invertDisplay(bl) display.invertDisplay(bl)
+Adafruit_SSD1306 display(WIDTH, HEIGHT, &Wire, 4);
 
-#define startscrollright(start, _stop_) display.startscrollright(start, _stop_)
-#define startscrollleft(start, _stop_) display.startscrollleft(start, _stop_)
-#define startscrolldiagleft(start, _stop_) display.startscrolldiagleft(start, _stop_)
-#define startscrolldiagright(start, _stop_) display.startscrolldiagright(start, _stop_)
-#define stopscroll display.stopscroll()
-#define setCursor(x, y) display.setCursor(x, y)
-#define setTextSize(s) display.setTextSize(s)
-#define setTextColor(color) display.setTextColor(color)
-
-#define drawBitmap(x,y,bmp,width,height) display.drawBitmap(x,y,bmp,width,height,1)
-#define getPixel(x, y) display.getPixel(x, y)
-#define drawPixel(x, y) display.drawPixel(x, y, SSD1306_INVERSE)
-#define drawLine(x1, y1, x2, y2) display.drawLine(x1, y1, x2, y2, SSD1306_INVERSE)
-#define drawCircle(x, y, s) display.drawCircle(x, y, s, SSD1306_INVERSE)
-#define fillCircle(x, y, s) display.fillCircle(x, y, s, SSD1306_INVERSE)
-#define drawRect(x1, y1, x2, y2) display.drawRect(x1, y1, x2, y2, SSD1306_INVERSE)
-#define fillRect(x1, y1, x2, y2) display.fillRect(x1, y1, x2, y2, SSD1306_INVERSE)
-#define roundRect(x1, y1, x2, y2, s) display.drawRoundRect(x1, y1, x2, y2, s, SSD1306_INVERSE)
-#define fillRoundRect(x1, y1, x2, y2, s) display.fillRoundRect(x1, y1, x2, y2, s, SSD1306_INVERSE)
-#define drawTriangle(x1, y1, x2, y2, x3, y3) display.drawTriangle(x1, y1, x2, y2, x3, y3, SSD1306_INVERSE)
 void setup() {
   { // display
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -39,6 +18,12 @@ void setup() {
 
 void loop() {
   CLS;
-  drawPixel(10, 10);
+  display.drawFastVLine(WIDTH / 2, 0, HEIGHT, SSD1306_WHITE);
+  display.drawFastHLine(0, HEIGHT / 2, WIDTH, SSD1306_WHITE);
+  for (int8_t i(-(WIDTH / 2)); i < (WIDTH / 2); ++i) {
+    //WHITE_LINE((WIDTH / 2) + i, (HEIGHT / 2) - pow(i, 2), (WIDTH / 2) + (i + 1), (HEIGHT / 2) - pow ((i + 1), 2));    
+    WHITE_LINE((WIDTH / 2) + i, (HEIGHT / 2) + sin(radians(i * 3)) * 30, (WIDTH / 2) + (i + 1), sin(radians((i + 1) * 3)) * 30 + (HEIGHT / 2));
+  }
+  
   DD;
 }
